@@ -1,0 +1,53 @@
+[
+    {
+      "name": "Red Cotton T-shirt",
+      "description": "Soft and comfortable cotton t-shirt perfect for summers.",
+      "location": "Warehouse A",
+      "quantity": 120,
+      "size": "S",
+      "details": "Limited edition summer collection",
+      "color": "Red",
+      "category": "Clothing"
+    },
+    {
+      "name": "Blue Denim Jeans",
+      "description": "Stylish denim jeans with a slim fit design.",
+      "location": "Warehouse B",
+      "quantity": 75,
+      "size": "M",
+      "details": "Slim fit",
+      "color": "Blue",
+      "category": "Clothing"
+    },
+    {
+      "name": "Running Shoes",
+      "description": "Lightweight shoes designed for maximum comfort while running.",
+      "location": "Warehouse A",
+      "quantity": 200,
+      "size": "9",
+      "details": "Cushioned sole",
+      "color": "Black",
+      "category": "Footwear"
+    },
+    {
+      "name": "Leather Wallet",
+      "description": "Genuine leather wallet with multiple compartments.",
+      "location": "Warehouse C",
+      "quantity": 50,
+      "size": "One Size",
+      "details": "Handcrafted leather",
+      "color": "Brown",
+      "category": "Accessories"
+    },
+    {
+      "name": "Green Hoodie",
+      "description": "Cozy hoodie for winter with front pockets.",
+      "location": "Warehouse A",
+      "quantity": 90,
+      "size": "L",
+      "details": "Winter wear",
+      "color": "Green",
+      "category": "Clothing"
+    }
+  ]
+  
