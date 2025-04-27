@@ -19,7 +19,7 @@ The agent determines which tool to call and what parameters to pass, using the D
 - **Model:** `deepseek/deepseek-r1:free` via OpenRouter API.
 - **Why DeepSeek:** It's a free, capable model perfect for parsing structured outputs like tool names and parameters.
 
-### **File Descriptions:**
+## 📁 File Descriptions:
 
 - **`index.py`**: This is the entry point for the project. It gets user input, constructs a prompt, and invokes the agent to fetch the required data.
   
