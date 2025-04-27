@@ -19,6 +19,20 @@ The agent determines which tool to call and what parameters to pass, using the D
 - **Model:** `deepseek/deepseek-r1:free` via OpenRouter API.
 - **Why DeepSeek:** It's a free, capable model perfect for parsing structured outputs like tool names and parameters.
 
+### **File Descriptions:**
+
+- **`index.py`**: This is the entry point for the project. It gets user input, constructs a prompt, and invokes the agent to fetch the required data.
+  
+- **`prompt.py`**: This file creates a prompt based on the user's query and the available tools. The prompt is passed to the model to determine which tool to use.
+
+- **`model.py`**: Contains the client code for interacting with the DeepSeek model. It sends the constructed prompt and receives the response containing the tool name and parameters.
+
+- **`agent.py`**: This file decides which tool to call based on the model's output (`tool_name`) and executes the corresponding function from `tools.py`.
+
+- **`tools.py`**: Contains functions to filter products based on different criteria like color, size, and location. Each function corresponds to one of the tools mentioned above.
+
+- **`products.json`**: Contains dummy product data (could be replaced with real database queries in the future). It’s used to simulate the output of the various tool functions.
+
 ## 🔍 Currently Supported Tools (Functions)
 
 | Tool Name               | Purpose                                         |
