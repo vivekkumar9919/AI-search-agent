@@ -2,52 +2,68 @@
     {
       "name": "Red Cotton T-shirt",
       "description": "Soft and comfortable cotton t-shirt perfect for summers.",
-      "location": "Warehouse A",
+      "location": "A",
       "quantity": 120,
       "size": "S",
       "details": "Limited edition summer collection",
       "color": "Red",
-      "category": "Clothing"
+      "category": "Clothing", 
+      "price": 1000
     },
     {
       "name": "Blue Denim Jeans",
       "description": "Stylish denim jeans with a slim fit design.",
-      "location": "Warehouse B",
+      "location": "B",
       "quantity": 75,
       "size": "M",
       "details": "Slim fit",
       "color": "Blue",
-      "category": "Clothing"
+      "category": "Clothing",
+      "price": 12000
+    },
+    {
+      "name": "Blue Denim shirt",
+      "description": "Stylish denim shirt with a slim fit design.",
+      "location": "B",
+      "quantity": 100,
+      "size": "M",
+      "details": "Slim fit",
+      "color": "black",
+      "category": "Clothing",
+      "price": 20
     },
     {
       "name": "Running Shoes",
       "description": "Lightweight shoes designed for maximum comfort while running.",
-      "location": "Warehouse A",
+      "location": "A",
       "quantity": 200,
       "size": "9",
       "details": "Cushioned sole",
       "color": "Black",
-      "category": "Footwear"
+      "category": "Footwear",
+      "price": 3000
     },
     {
       "name": "Leather Wallet",
       "description": "Genuine leather wallet with multiple compartments.",
-      "location": "Warehouse C",
+      "location": "C",
       "quantity": 50,
       "size": "One Size",
       "details": "Handcrafted leather",
       "color": "Brown",
-      "category": "Accessories"
+      "category": "Accessories",
+      "price": 100
     },
     {
       "name": "Green Hoodie",
       "description": "Cozy hoodie for winter with front pockets.",
-      "location": "Warehouse A",
+      "location": "A",
       "quantity": 90,
       "size": "L",
       "details": "Winter wear",
       "color": "Green",
-      "category": "Clothing"
+      "category": "Clothing",
+      "price": 5000
     }
   ]
   

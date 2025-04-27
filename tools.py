@@ -5,8 +5,6 @@ import json
 with open('products.json', 'r') as file:
     products = json.load(file)
 
-# print("product json", products)
-
 # --- TOOL 1: Search products by a keyword ---
 def search_products_by_word(word):
     results = []
@@ -26,3 +24,10 @@ def total_quantity_for_size(size):
 # --- TOOL 3: Filter products by color ---
 def filter_by_color(color):
     return [product for product in products if product['color'].lower() == color.lower()]
+
+# --- TOOL 4: List products from a specific location ---
+def products_in_location(location):
+    return [
+        product for product in products
+        if product['location'].lower() == location.lower()
+    ]

@@ -1,27 +1,25 @@
-from transformers import pipeline
-from huggingface_hub import login
-import os
-import logging
-from dotenv import load_dotenv
 
-from tools import search_products_by_word, total_quantity_for_size, filter_by_color
+from agent import agent
+from promt import create_prompt
+from model import deepseek_model
 
-load_dotenv()
-API_KEYS = os.getenv('API_KEYS')
-print("api", API_KEYS)
 
-os.environ["TOKENIZERS_PARALLELISM"] = "false"
-logging.getLogger("transformers").setLevel(logging.ERROR)
 
-# Log in with your token
-login(token= API_KEYS)
+# --- CHAT LOOP ---
+if __name__ == "__main__":
+    print("\nWelcome to Product AI Agent 🤖! (Type 'exit' to quit)\n")
+    while True:
+        user_input = input("You: ")
+        if user_input.lower() == "exit":
+            print("Goodbye! 👋")
+            break
+        # user_input = "List all Green Hoodie products"
+        agent_promt = create_prompt(user_input)
+        tool_name, parameters = deepseek_model(agent_promt)
+        print("tools name ->", tool_name)
+        print("tools parameter ->", parameters)
+        products = agent(tool_name, parameters)
+        print(products)
 
-print("Search by name", search_products_by_word("Red Cotton T-shirt"))
 
-# Initialize the pipeline
-generator = pipeline("text-generation", model="gpt2")
 
-# Generate text
-prompt = "What's is html"
-response = generator(prompt, max_length=1024)
-print(response[0]['generated_text'])
