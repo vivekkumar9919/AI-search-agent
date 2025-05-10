@@ -60,5 +60,73 @@ The agent determines which tool to call and what parameters to pass, using the D
 - **User Authentication & Authorization:** Add token-based access to different tools based on user roles.
 - **Front-end Integration:** Build a simple UI to interact with the agent via web.
 
+# Development Plan 🎯
+
+This document outlines the phased development roadmap for the AI Agent system. It focuses on intelligent product querying using natural language and tool-based execution logic.
+
+---
+
+## Phase 1: MongoDB Integration & Query Abstraction (in-progress)
+
+The goal of Phase 1 is to replace the static JSON-based logic with real MongoDB-backed queries and build a scalable base for future NLP-to-query translations.
+
+### 🔧 Tasks & Checklist
+
+- [ ] Replace static `products.json` with actual MongoDB collection.
+- [ ] Create a centralized MongoDB connection module.
+    - e.g., `db.py` to handle `get_collection(collection_name)` access.
+- [x] Refactor existing tools to perform MongoDB queries directly:
+    - [x] `search_products_by_word`
+    - [x] `total_quantity_for_size`
+    - [x] `filter_by_color`
+    - [x] `products_in_location`
+- [ ] Maintain same tool interface and responses (for backward compatibility).
+- [ ] Environment support for MongoDB URI (`.env`)
+- [ ] Document schema assumptions for the `products` collection.
+- [ ] Support prompt to MongoDB query generation logic (e.g., translate: “products with price < 500 and color red” → MongoDB filter).
+- [ ] Create structure to define tools that require logic beyond MongoDB queries.
+    - e.g., Advanced tool framework, moved to `advanced_tools.py`.
+
+---
+
+##  Phase 2: Advanced Intelligence, Multi-Tool Logic & UX
+
+The focus of Phase 2 is to introduce multi-tool chaining, smarter decisioning, user-aware logic, and UX enhancements.
+
+### 🧩 Tasks & Checklist
+
+- [ ] **Multi-tool execution support**
+    - Allow chaining multiple tools if one query needs multiple steps.
+    - Example: “List red shoes and their average price”
+- [ ] **Tool composition logic**
+    - e.g., One tool extracts a list, another analyzes it.
+- [ ] **Advanced tools (Python logic beyond MongoDB)**
+    - [x] `recommend_similar_products` (NLP-based)
+    - [x] `get_user_purchase_history_summary`
+    - [x] `products_below_average_price_in_category`
+    - [x] `suggest_restock_products`
+- [ ] **Decision making based on user-specific or historical data**
+    - Purchase history
+    - Inventory movement
+    - Past preferences
+- [ ] **Tool metadata update for better agent decisions**
+    - e.g., Tool description, expected inputs/outputs
+- [ ] **Frontend/CLI enhancements**
+    - Create a basic UI (React/HTML or CLI-based)
+    - Allow step-by-step interaction with the agent
+- [ ] **Session memory or context**
+    - Enable context retention for follow-up queries
+    - Store temporary query results if needed
+- [ ] **Better error handling and fallbacks**
+    - Unknown tool
+    - Missing parameters
+    - Tool chaining failure
+
+---
+
+## 🏗️ Folder Structure (Updated)
+
+
+
 Made with ❤️ by **Vivek**
 
