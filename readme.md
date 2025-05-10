@@ -123,10 +123,5 @@ The focus of Phase 2 is to introduce multi-tool chaining, smarter decisioning, u
     - Tool chaining failure
 
 ---
-
-## 🏗️ Folder Structure (Updated)
-
-
-
 Made with ❤️ by **Vivek**
 
