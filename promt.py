@@ -87,4 +87,13 @@ def create_prompt(user_input):
     """
     return prompt
 
+def create_query_promt(user_input):
+    """
+    This functions are used of creating promt query to convert natural language into mongo queries
+    Take user input 
+    return mongo queries
+    """
+    print(user_input)
+    return "query_promt"
+
 
