@@ -70,14 +70,14 @@ This document outlines the phased development roadmap for the AI Agent system. I
 
 The goal of Phase 1 is to replace the static JSON-based logic with real MongoDB-backed queries and build a scalable base for future NLP-to-query translations.
 
-- [ ] Replace static `products.json` with actual MongoDB collection.
-- [ ] Create a centralized MongoDB connection module.
+- [x] Replace static `products.json` with actual MongoDB collection.
+- [x] Create a centralized MongoDB connection module.
     - e.g., `db.py` to handle `get_collection(collection_name)` access.
-- [x] Refactor existing tools to perform MongoDB queries directly:
-    - [x] `search_products_by_word`
-    - [x] `total_quantity_for_size`
-    - [x] `filter_by_color`
-    - [x] `products_in_location`
+- [] Refactor existing tools to perform MongoDB queries directly:
+    - [] `search_products_by_word`
+    - [] `total_quantity_for_size`
+    - [] `filter_by_color`
+    - [] `products_in_location`
 - [ ] Maintain same tool interface and responses (for backward compatibility).
 - [ ] Environment support for MongoDB URI (`.env`)
 - [ ] Document schema assumptions for the `products` collection.
