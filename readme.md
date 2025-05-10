@@ -70,8 +70,6 @@ This document outlines the phased development roadmap for the AI Agent system. I
 
 The goal of Phase 1 is to replace the static JSON-based logic with real MongoDB-backed queries and build a scalable base for future NLP-to-query translations.
 
-### 🔧 Tasks & Checklist
-
 - [ ] Replace static `products.json` with actual MongoDB collection.
 - [ ] Create a centralized MongoDB connection module.
     - e.g., `db.py` to handle `get_collection(collection_name)` access.
@@ -92,8 +90,6 @@ The goal of Phase 1 is to replace the static JSON-based logic with real MongoDB-
 ##  Phase 2: Advanced Intelligence, Multi-Tool Logic & UX
 
 The focus of Phase 2 is to introduce multi-tool chaining, smarter decisioning, user-aware logic, and UX enhancements.
-
-### 🧩 Tasks & Checklist
 
 - [ ] **Multi-tool execution support**
     - Allow chaining multiple tools if one query needs multiple steps.
