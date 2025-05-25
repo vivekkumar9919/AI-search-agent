@@ -53,6 +53,38 @@ tools = [
     }
 ]
 
+sample_product = {
+    "name": "Green Hoodie",
+    "description": "Cozy hoodie for winter with front pockets.",
+    "location": "A",
+    "quantity": 90,
+    "size": "L",
+    "details": "Winter wear",
+    "color": "Green",
+    "category": "Clothing",
+    "price": 5000
+}
+
+product_schema = {
+    "name": "string",
+    "description": "string",
+    "location": "string",
+    "quantity": "integer",
+    "size": "string",
+    "details": "string",
+    "color": "string",
+    "category": "string",
+    "price": "integer"
+}
+
+field_values = {
+    "category": ["Clothing", "Footwear", "Accessories"],
+    "size": ["S", "M", "L", "9", "One Size"],
+    "color": ["Red", "Blue", "Black", "Brown", "Green"]
+}
+
+
+
 def create_prompt(user_input):
     """
     Takes a user_input and convert into promt,
@@ -87,13 +119,51 @@ def create_prompt(user_input):
     """
     return prompt
 
-def create_query_promt(user_input):
-    """
-    This functions are used of creating promt query to convert natural language into mongo queries
-    Take user input 
-    return mongo queries
-    """
-    print(user_input)
-    return "query_promt"
+
+
+
+output_format  = f"""Use the format below:{{
+filter={{{{...}}}},
+project={{{{...}}}},
+limit=...,
+sort=[("field", 1 or -1)]
+}}"""
+
+
+def build_query_prompt(user_input: str) -> str:
+    return f"""
+You are an intelligent MongoDB query assistant.
+
+You will receive user input in natural language.
+Your job is to convert it into a MongoDB query using only simple filter conditions (e.g., field equality or range).
+
+{output_format}
+
+Rules:
+- Only use fields from the schema.
+- Use equality conditions for values clearly specified by the user (e.g., color, category).
+- Use range conditions (>, <) if the user says "above", "greater than", "less than", etc.
+- Project ALL fields unless user explicitly asks for specific ones.
+- Limit must be <= 10 (default to 10 if not specified).
+- Use an empty `sort=[]` if no sort is mentioned.
+- Use correct case for values (e.g., "Red", not "red").
+
+Schema:
+{product_schema}
+
+Available Field Values:
+{field_values}
+
+Sample Product:
+{sample_product}
+
+Now based on this schema, values, and user input, generate the MongoDB query as described above.
+Respond with a valid JSON object with keys filter, project, limit, and sort. Do not use Python syntax. Only return the JSON object without any explanation or comments.
+
+User Input:
+\"\"\"{user_input}\"\"\"
+""".strip()
+
+
 
 

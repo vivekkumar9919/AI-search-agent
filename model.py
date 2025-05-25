@@ -29,22 +29,7 @@ def deepseek_model(prompt: str) -> str:
             ]
         )
         response = completion.choices[0].message.content
-        # print("raw response ", response)
-        tool_name = None
-        parameters = None
-
-        lines = response.splitlines()
-        for line in lines:
-            if line.startswith("Tool:"):
-                tool_name = line.replace("Tool:", "").strip()
-            elif line.startswith("Parameters:"):
-                parameters = line.replace("Parameters:", "").strip()
-
-        if tool_name and parameters:
-            return tool_name, parameters
-        else:
-            print("Failed to extract tool or parameters from response.")
-            return None, None
+        return response
     except Exception as e:
         print(f"Error occurred while fetching response: {e}")
         return None

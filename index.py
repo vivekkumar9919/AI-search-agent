@@ -1,8 +1,10 @@
 
 from agent import agent
-from promt import create_prompt, create_query_promt
+from promt import create_prompt, build_query_prompt
 from model import deepseek_model
 from mongo_query import query_mongo, insert_sample_products
+import json
+import re
 
 
 
@@ -24,18 +26,29 @@ if __name__ == "__main__":
 
 
 # for testing only 
-    user_input = "List all Green Hoodie products"
-    query_promt = create_query_promt(user_input)
-    print(query_promt)
+    user_input = "List all products have category Accessories"
+    query_promt = build_query_prompt(user_input)
+    # print(query_promt)
     # insert_sample_products("products")
-    product_data = query_mongo(
-        collection_name="products",
-        filter={"color": "Red"},
-        project={"_id": 0, "name": 1, "color": 1},
-        limit=5,
-        sort=[("name", 1)]
-    )
-    print(product_data)
+    raw_response = deepseek_model(query_promt)
+    print("raw_response from model ->>>", raw_response)
+    # Remove markdown backticks and language identifiers like ```json
+    cleaned_response = re.sub(r"^```(?:json)?|```$", "", raw_response.strip(), flags=re.MULTILINE).strip()
+    try:
+        response = json.loads(cleaned_response)
+    except Exception as e:
+        print("Error parsing response:", e)
+        response = {}
+    print("Cleaned response from model ->>>", response)
+    search_product_query = {
+        "filter": response.get("filter", {}),
+        "project": response.get("project", {}),
+        "limit": response.get("limit", 10),
+        "sort": response.get("sort", []),
+        "collection_name": "products"
+    }
+    product_data = query_mongo(search_product_query)
+    print("filtered product ",product_data)
     # agent_promt = create_prompt(user_input)
     # tool_name, parameters = deepseek_model(agent_promt)
     # print("tools name ->", tool_name)

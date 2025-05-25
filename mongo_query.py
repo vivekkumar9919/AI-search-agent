@@ -7,26 +7,25 @@ with open('products.json', 'r') as file:
     products = json.load(file)
 
 
-def query_mongo(
-    collection_name: str,
-    filter: dict = {},
-    project: dict = None,
-    limit: int = 0,
-    sort: list = None
-):
+def query_mongo(search_product_query):
     try:
-        collection = get_collection(collection_name)
-        cursor = collection.find(filter, projection=project)
+        print("Mongo queries", search_product_query)
+        collection = get_collection(search_product_query["collection_name"])
+        cursor = collection.find(
+            search_product_query["filter"], 
+            projection=search_product_query["project"]
+        )
 
-        if sort:
-            cursor = cursor.sort(sort)
-        if limit:
-            cursor = cursor.limit(limit)
+        if search_product_query.get("sort"):
+            cursor = cursor.sort(search_product_query["sort"])
+        if search_product_query.get("limit"):
+            cursor = cursor.limit(search_product_query["limit"])
 
         return list(cursor)
     except Exception as e:
-        logging.error(f"Error querying {collection_name}: {e}")
+        logging.error(f"Error querying {search_product_query.get('collection_name', 'unknown')}: {e}")
         return []
+
     
 
 
