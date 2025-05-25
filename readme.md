@@ -73,15 +73,14 @@ The goal of Phase 1 is to replace the static JSON-based logic with real MongoDB-
 - [x] Replace static `products.json` with actual MongoDB collection.
 - [x] Create a centralized MongoDB connection module.
     - e.g., `db.py` to handle `get_collection(collection_name)` access.
-- [] Refactor existing tools to perform MongoDB queries directly:
-    - [] `search_products_by_word`
-    - [] `total_quantity_for_size`
-    - [] `filter_by_color`
-    - [] `products_in_location`
-- [ ] Maintain same tool interface and responses (for backward compatibility).
-- [ ] Environment support for MongoDB URI (`.env`)
-- [ ] Document schema assumptions for the `products` collection.
-- [ ] Support prompt to MongoDB query generation logic (e.g., translate: “products with price < 500 and color red” → MongoDB filter).
+- [x] Refactor existing tools to perform MongoDB queries directly:
+    - [x] `search_products_by_word`
+    - [x] `total_quantity_for_size`
+    - [x] `filter_by_color`
+    - [x] `products_in_location`
+- [x] Environment support for MongoDB URI (`.env`)
+- [x] Document schema assumptions for the `products` collection.
+- [x] Support prompt to MongoDB query generation logic (e.g., translate: “products with price < 500 and color red” → MongoDB filter).
 - [ ] Create structure to define tools that require logic beyond MongoDB queries.
     - e.g., Advanced tool framework, moved to `advanced_tools.py`.
 
