@@ -1,3 +1,7 @@
+
+from utilities.product_info import product_schema, product_field_values
+from sample_data.product_data import sample_product
+
 tools = [
     {
         "name": "search_products_by_word",
@@ -53,35 +57,62 @@ tools = [
     }
 ]
 
-sample_product = {
-    "name": "Green Hoodie",
-    "description": "Cozy hoodie for winter with front pockets.",
-    "location": "A",
-    "quantity": 90,
-    "size": "L",
-    "details": "Winter wear",
-    "color": "Green",
-    "category": "Clothing",
-    "price": 5000
-}
+advanced_tools = [
+    {
+        "name": "calculate_average_price",
+        "type": "advanced",
+        "description": "Compute the average price of the list of products returned from MongoDB.",
+        "when_to_use": [
+            "User asks for average/mean/typical price of any set of products",
+            "User asks to summarize pricing for results"
+        ],
+        "parameters": [],  
+        "returns": {"type": "number", "description": "Average price as a float"}
+    },
+        {
+        "name": "profit_margin_analyzer",
+        "type": "advanced",
+        "description": "Calculate the profit margin percentage for products based on (price - final_price) / price * 100. Useful for analyzing discount-driven profit margins.",
+        "when_to_use": [
+            "User asks for average/median/highest/lowest profit margin across a set of products",
+            "User wants to compare margins across categories or brands",
+            "User is analyzing which products give the best discount-based margin"
+        ],
+        "parameters": [],
+        "returns": {"type": "number", "description": "Average profit margin percentage across the products"}
+    },
+    {
+        "name": "low_stock_with_velocity",
+        "type": "advanced",
+        "description": "Identify products that are low in stock compared to their sales velocity (units sold per day). Helps sellers detect which products may go out of stock soon.",
+        "when_to_use": [
+            "User asks 'which products are selling fast but have low stock?'",
+            "User wants alerts for products at risk of stockout",
+            "User wants to plan reordering decisions based on demand vs stock"
+        ],
+        "parameters": [
+            {"name": "stock_threshold", "type": "integer", "description": "Stock level below which a product is considered low"},
+            {"name": "days_window", "type": "integer", "description": "Number of days to calculate sales velocity"}
+        ],
+        "returns": {"type": "list", "description": "List of products at risk of stockout with their stock and velocity"}
+    },
+    {
+        "name": "price_band_distribution",
+        "type": "advanced",
+        "description": "Categorize products into predefined price bands (e.g., 0–500, 500–1000, 1000–2000, etc.) and compute how many products fall into each band. Useful for understanding product positioning.",
+        "when_to_use": [
+            "User asks for product distribution across price ranges",
+            "User wants to know which price bands have the most/least products",
+            "User is analyzing pricing strategy across categories"
+        ],
+        "parameters": [
+            {"name": "bands", "type": "list", "description": "List of tuples defining price ranges e.g., [(0,500),(500,1000)]"}
+        ],
+        "returns": {"type": "dict", "description": "Dictionary of price bands and product counts"}
+    },
+]
 
-product_schema = {
-    "name": "string",
-    "description": "string",
-    "location": "string",
-    "quantity": "integer",
-    "size": "string",
-    "details": "string",
-    "color": "string",
-    "category": "string",
-    "price": "integer"
-}
 
-field_values = {
-    "category": ["Clothing", "Footwear", "Accessories"],
-    "size": ["S", "M", "L", "9", "One Size"],
-    "color": ["Red", "Blue", "Black", "Brown", "Green"]
-}
 
 
 
@@ -152,7 +183,7 @@ Schema:
 {product_schema}
 
 Available Field Values:
-{field_values}
+{product_field_values}
 
 Sample Product:
 {sample_product}
@@ -166,4 +197,60 @@ User Input:
 
 
 
+# --------------------------------------------------------------------------------#
+
+OUTPUT_FORMAT_PROMT = """
+Return a VALID JSON object with EXACTLY these keys:
+
+{
+  "query_part": {
+    "filter": { ... },               // simple equality/range/regex only
+    "project": { ... },              // project ALL fields unless user asked specific ones
+    "limit": <int <= 10>,            // default 10
+    "sort": [ ["field", 1 or -1] ]   // empty array [] if no sort
+  },
+  "analysis_required": true | false, // true if additional processing beyond direct Mongo filter is needed
+  "advanced_tool": "tool_name_or_null", // if analysis_required=true, set to an available tool name; else null
+  "advanced_parameters": { }         // optional object; use {} if no extra params needed
+}
+
+STRICT RULES:
+- OUTPUT JSON ONLY. No code fences. No comments. No trailing commas.
+- Use ONLY fields from the schema.
+- Equality: color/category/location/size by exact value from product_field_values when clearly stated.
+- Range: use $lt/$lte/$gt/$gte when phrases like "below/under", "above/over" are used.
+- Keyword text match: use case-insensitive $regex for simple contains on name/description.
+- Project ALL fields unless the user explicitly limits which fields to show.
+- Use correct case for values from product_field_values (e.g., "Red", not "red").
+- If analysis is clearly required (e.g., 'average price'), set analysis_required=true and advanced_tool accordingly.
+"""
+
+
+def build_prompt(user_input: str) -> str:
+    return f"""
+You are an AI planner that (1) builds a simple MongoDB query and (2) decides if an advanced analysis tool is needed.
+
+SCHEMA:
+{product_schema}
+
+ALLOWED FIELD VALUES:
+{product_field_values}
+
+SAMPLE PRODUCT:
+{sample_product}
+
+AVAILABLE TOOLS:
+{advanced_tools}
+
+WHAT TO DO:
+1) Parse the user's request.
+2) Build a simple MongoDB query (filters only; no aggregation).
+3) Decide if analysis is needed (e.g., computing average price).
+4) If needed, select an appropriate advanced tool and set analysis_required=true; otherwise false.
+
+{OUTPUT_FORMAT_PROMT}
+
+User Input:
+\"\"\"{user_input}\"\"\"
+""".strip()
 
