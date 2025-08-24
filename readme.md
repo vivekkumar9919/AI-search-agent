@@ -84,8 +84,13 @@ The goal of Phase 1 is to replace the static JSON-based logic with real MongoDB-
 - [x] Update the product schema so that it aligns with real-world product data
 - [x] Add data seed file 
 - [x] Create structure to define tools that require logic beyond MongoDB queries.
+- [x] **Multi-tool execution support**
+    - Allow chaining multiple tools if one query needs multiple steps.
+    - Example: “List red shoes and their average price”
+- [x] **Tool composition logic**
+    - e.g., One tool extracts a list, another analyzes it.
 
-    ## Supported Advanced Tools
+    ## Supported Advanced Tools in Phase 1
 
     🔹 `calculate_average_price`
     Helps calculate the **average price** of products across categories, collections, or identifiers.
@@ -128,20 +133,10 @@ The goal of Phase 1 is to replace the static JSON-based logic with real MongoDB-
 
 ---
 
-##  Phase 2: Advanced Intelligence, Multi-Tool Logic & UX
+##  Phase 2: Advanced Intelligence, Multi-Tool Logic & UX ( in-progress )
 
 The focus of Phase 2 is to introduce multi-tool chaining, smarter decisioning, user-aware logic, and UX enhancements.
 
-- [ ] **Multi-tool execution support**
-    - Allow chaining multiple tools if one query needs multiple steps.
-    - Example: “List red shoes and their average price”
-- [ ] **Tool composition logic**
-    - e.g., One tool extracts a list, another analyzes it.
-- [ ] **Advanced tools (Python logic beyond MongoDB)**
-    - [x] `recommend_similar_products` (NLP-based)
-    - [x] `get_user_purchase_history_summary`
-    - [x] `products_below_average_price_in_category`
-    - [x] `suggest_restock_products`
 - [ ] **Decision making based on user-specific or historical data**
     - Purchase history
     - Inventory movement
