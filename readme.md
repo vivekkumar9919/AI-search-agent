@@ -19,19 +19,6 @@ The agent determines which tool to call and what parameters to pass, using the D
 - **Model:** `deepseek/deepseek-r1:free` via OpenRouter API.
 - **Why DeepSeek:** It's a free, capable model perfect for parsing structured outputs like tool names and parameters.
 
-## 📁 File Descriptions:
-
-- **`index.py`**: This is the entry point for the project. It gets user input, constructs a prompt, and invokes the agent to fetch the required data.
-  
-- **`prompt.py`**: This file creates a prompt based on the user's query and the available tools. The prompt is passed to the model to determine which tool to use.
-
-- **`model.py`**: Contains the client code for interacting with the DeepSeek model. It sends the constructed prompt and receives the response containing the tool name and parameters.
-
-- **`agent.py`**: This file decides which tool to call based on the model's output (`tool_name`) and executes the corresponding function from `tools.py`.
-
-- **`tools.py`**: Contains functions to filter products based on different criteria like color, size, and location. Each function corresponds to one of the tools mentioned above.
-
-- **`products.json`**: Contains dummy product data (could be replaced with real database queries in the future). It’s used to simulate the output of the various tool functions.
 
 ## 🔍 Currently Supported Tools (Functions)
 
@@ -133,7 +120,7 @@ The goal of Phase 1 is to replace the static JSON-based logic with real MongoDB-
 
 ---
 
-##  Phase 2: Advanced Intelligence, Multi-Tool Logic & UX ( in-progress )
+##  Phase 2: Multi-Tool Logic & UX ( in-progress )
 
 The focus of Phase 2 is to introduce multi-tool chaining, smarter decisioning, user-aware logic, and UX enhancements.
 
@@ -141,18 +128,35 @@ The focus of Phase 2 is to introduce multi-tool chaining, smarter decisioning, u
     - Purchase history
     - Inventory movement
     - Past preferences
+- [x] **Create a API for frontend**
+    - e.g., get products
+- [ ] **Product search integration with backend**
+    - Connect AI search with backend APIs
+    - Ensure results are fetched in real-time
 - [ ] **Tool metadata update for better agent decisions**
     - e.g., Tool description, expected inputs/outputs
 - [ ] **Frontend/CLI enhancements**
     - Create a basic UI (React/HTML or CLI-based)
     - Allow step-by-step interaction with the agent
-- [ ] **Session memory or context**
-    - Enable context retention for follow-up queries
-    - Store temporary query results if needed
 - [ ] **Better error handling and fallbacks**
     - Unknown tool
     - Missing parameters
     - Tool chaining failure
+
+## Phase 3: Advanced Intelligence, Chatbot & Backend Integrations
+
+The focus of Phase 3 is to introduce advanced intelligence with session memory, conversational context, chatbot capabilities, and deeper backend integrations.
+
+- [ ] **Session memory or context**
+    - Enable context retention for follow-up queries
+    - Store temporary query results if needed
+- [ ] **Conversational chatbot**
+    - Interactive chat-based interface
+    - Understands multi-turn queries
+    - Returns results while maintaining context (e.g., "Show me jackets" → "Only in black" → "Under ₹3000")
+- [ ] **Chatbot integration with backend**
+    - Connect chatbot to backend APIs
+    - Allow real-time responses (product availability, inventory, recommendations)
 
 ---
 Made with ❤️ by **Vivek**
