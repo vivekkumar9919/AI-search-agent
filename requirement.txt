@@ -2,3 +2,5 @@ python-dotenv
 OpenAI
 pymongo
 python-dotenv
+fastapi
+uvicorn
