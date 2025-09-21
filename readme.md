@@ -19,25 +19,6 @@ The agent determines which tool to call and what parameters to pass, using the D
 - **Model:** `deepseek/deepseek-r1:free` via OpenRouter API.
 - **Why DeepSeek:** It's a free, capable model perfect for parsing structured outputs like tool names and parameters.
 
-
-## 🔍 Currently Supported Tools (Functions)
-
-| Tool Name               | Purpose                                         |
-| ------------------------ | ----------------------------------------------- |
-| `search_products_by_word`| Search products based on a keyword in name/description |
-| `total_quantity_for_size`| Get total quantity available for a specific size |
-| `filter_by_color`        | Get products filtered by color                 |
-| `products_in_location`   | Get products available in a specific warehouse/location |
-
-## ✏️ Example User Queries
-
-| User Query                        | Tool Selected             | Parameters          |
-| ---------------------------------- | -------------------------- | -------------------- |
-| "List products with the color red."| `filter_by_color`          | `color = "red"`      |
-| "What is the total quantity of size M?"| `total_quantity_for_size` | `size = "M"`         |
-| "Show me products containing 'jeans'."| `search_products_by_word` | `word = "jeans"`     |
-| "List products in warehouse A."    | `products_in_location`     | `location = "A"`     |
-
 ## 🚀 Future Scope
 
 - **Adding More Tools:** New actions like filtering by price, category, discount percentage, etc.
@@ -77,46 +58,46 @@ The goal of Phase 1 is to replace the static JSON-based logic with real MongoDB-
 - [x] **Tool composition logic**
     - e.g., One tool extracts a list, another analyzes it.
 
-    ## Supported Advanced Tools in Phase 1
+## Supported Advanced Tools in Phase 1
 
-    🔹 `calculate_average_price`
-    Helps calculate the **average price** of products across categories, collections, or identifiers.
+🔹 `calculate_average_price`
+Helps calculate the **average price** of products across categories, collections, or identifiers.
 
-    **Example Queries:**
-    - "What’s the average price of all my shirts?"
-    - "Give me the typical price across products in Electronics."
-    - "On average, how much are my sneakers priced?"
+**Example Queries:**
+- "What’s the average price of all my shirts?"
+- "Give me the typical price across products in Electronics."
+- "On average, how much are my sneakers priced?"
 
-    ---
+---
 
-   🔹 `profit_margin_analyzer`
-    Analyzes products by **profit margin** to identify the most and least profitable items or categories.
+🔹 `profit_margin_analyzer`
+Analyzes products by **profit margin** to identify the most and least profitable items or categories.
 
-    **Example Queries:**
-    - "Which products give me the highest profit margin?"
-    - "Show me products with profit margin less than 20%."
-    - "List top 5 categories by average profit margin."
+**Example Queries:**
+- "Which products give me the highest profit margin?"
+- "Show me products with profit margin less than 20%."
+- "List top 5 categories by average profit margin."
 
-    ---
+---
 
-   🔹 `low_stock_alert_with_velocity`
-    Generates **low-stock alerts** by combining current inventory with sales velocity.  
-    ⚠️ *Note: Velocity is currently hardcoded in this version.*
+🔹 `low_stock_alert_with_velocity`
+Generates **low-stock alerts** by combining current inventory with sales velocity.  
+⚠️ *Note: Velocity is currently hardcoded in this version.*
 
-    **Example Queries:**
-    - "Which products will run out soon if sales continue at current speed?"
-    - "Show me items with low stock that may sell out in less than 10 days."
-    - "Alert me for fast-moving items with less than 5 units left."
+**Example Queries:**
+- "Which products will run out soon if sales continue at current speed?"
+- "Show me items with low stock that may sell out in less than 10 days."
+- "Alert me for fast-moving items with less than 5 units left."
 
-    ---
+---
 
-    🔹 `price_band_distribution`
-    Provides insights into the **distribution of products by price ranges**.
+🔹 `price_band_distribution`
+Provides insights into the **distribution of products by price ranges**.
 
-    **Example Queries:**
-    - "How many products fall between ₹1000–₹2000?"
-    - "Show me distribution of products in price ranges of 500, 1000, and 2000."
-    - "Which price band has the maximum number of products?"
+**Example Queries:**
+- "How many products fall between ₹1000–₹2000?"
+- "Show me distribution of products in price ranges of 500, 1000, and 2000."
+- "Which price band has the maximum number of products?"
 
 ---
 
@@ -130,12 +111,12 @@ The focus of Phase 2 is to introduce multi-tool chaining, smarter decisioning, u
     - Past preferences
 - [x] **Create a API for frontend**
     - e.g., get products
-- [ ] **Product search integration with backend**
+- [x] **Product search integration with backend**
     - Connect AI search with backend APIs
     - Ensure results are fetched in real-time
 - [ ] **Tool metadata update for better agent decisions**
     - e.g., Tool description, expected inputs/outputs
-- [ ] **Frontend/CLI enhancements**
+- [x] **Frontend/CLI enhancements**
     - Create a basic UI (React/HTML or CLI-based)
     - Allow step-by-step interaction with the agent
 - [ ] **Better error handling and fallbacks**
