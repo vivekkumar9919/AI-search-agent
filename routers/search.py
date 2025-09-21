@@ -17,14 +17,40 @@ def search_items(request: SearchRequest):
     user_input = request.search_message
     page = request.page_info.page
     limit = request.page_info.limit
+    if not user_input or user_input.strip() == "":
+        search_product_query = {
+            "filter": {},
+            "project": {},
+            "limit": limit,
+            "sort": [],
+            "collection_name": "products"
+        }
+        product_data = query_mongo(search_product_query)
+        total = len(product_data)
+        total_pages = (total + limit - 1) // limit  
+
+        return {
+            "page_info": {
+                "total_items": total,
+                "page": page,
+                "limit": limit,
+                "total_pages": total_pages,
+                "has_next": page < total_pages,
+                "has_prev": page > 1,
+            },
+            "product": jsonable_encoder(product_data, custom_encoder={ObjectId: str}),
+            "tools_response": ""
+        }
+
     # user_input = "List all products with price greater then 2000"
 
     # query_promt = build_query_prompt(user_input)
     query_promt = build_prompt(user_input)
     raw_response = deepseek_model(query_promt)
     print("raw_response from model ->>>", raw_response)
-
-    cleaned_response = re.sub(r"^```(?:json)?|```$", "", raw_response.strip(), flags=re.MULTILINE).strip()
+    cleaned_response ={}
+    if raw_response:
+        cleaned_response = re.sub(r"^```(?:json)?|```$", "", raw_response.strip(), flags=re.MULTILINE).strip()
     response = {}
     try:
         response = json.loads(cleaned_response)
